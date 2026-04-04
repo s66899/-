@@ -1,0 +1,8 @@
+.filter-bar { display: flex; gap: 16rpx; margin-bottom: 20rpx; }
+.filter-item { padding: 12rpx 24rpx; border-radius: 30rpx; background: #fff; font-size: 24rpx; color: #666; }
+.filter-item.active { background: #4facfe; color: #fff; }
+.student-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12rpx; }
+.student-name { font-size: 30rpx; font-weight: 600; }
+.student-info { font-size: 24rpx; color: #666; line-height: 1.8; }
+.hours { color: #4facfe; font-weight: 700; font-size: 28rpx; }
+.empty { text-align: center; padding: 80rpx 0; color: #999; font-size: 28rpx; }

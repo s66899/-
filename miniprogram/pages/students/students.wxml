@@ -1,0 +1,23 @@
+<view class="container">
+  <view class="search-bar">
+    <text>🔍</text>
+    <input placeholder="搜索学员姓名、电话" bindinput="onSearch" value="{{searchText}}" />
+  </view>
+  <view class="filter-bar">
+    <view class="filter-item {{statusFilter==''?'active':''}}" bindtap="setFilter" data-status="">全部</view>
+    <view class="filter-item {{statusFilter=='active'?'active':''}}" bindtap="setFilter" data-status="active">在读</view>
+    <view class="filter-item {{statusFilter=='inactive'?'active':''}}" bindtap="setFilter" data-status="inactive">已结</view>
+  </view>
+  <view class="card" wx:for="{{students}}" wx:key="id" bindtap="showDetail" data-item="{{item}}">
+    <view class="student-header">
+      <text class="student-name">{{item.name}}</text>
+      <text class="badge {{item.status=='active'?'badge-active':'badge-inactive'}}">{{item.status=='active'?'在读':'已结'}}</text>
+    </view>
+    <view class="student-info">
+      <text>📞 {{item.phone || '未填写'}}</text>
+      <text>🏅 {{item.level || '-'}} | 👨‍🏫 {{item.coach || '-'}}</text>
+      <text>⏰ 剩余课时: <text class="hours">{{item.remaining_hours}}</text></text>
+    </view>
+  </view>
+  <view wx:if="{{students.length===0}}" class="empty">暂无学员数据</view>
+</view>

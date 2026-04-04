@@ -1,0 +1,44 @@
+<view class="container">
+  <view class="header">
+    <text class="title">🐏 的教务系统</text>
+    <text class="subtitle">羽毛球培训管理</text>
+  </view>
+
+  <view class="stats-grid">
+    <view class="stat-item" bindtap="goToStats">
+      <text class="value">{{stats.total_students}}</text>
+      <text class="label">总学员</text>
+    </view>
+    <view class="stat-item">
+      <text class="value">{{stats.active_students}}</text>
+      <text class="label">在读学员</text>
+    </view>
+    <view class="stat-item">
+      <text class="value">{{stats.total_hours}}</text>
+      <text class="label">总课时</text>
+    </view>
+    <view class="stat-item">
+      <text class="value">{{stats.remaining_hours}}</text>
+      <text class="label">剩余课时</text>
+    </view>
+  </view>
+
+  <view class="menu-grid">
+    <view class="menu-item" bindtap="goToStudents">
+      <text class="menu-icon">👥</text>
+      <text class="menu-text">学员管理</text>
+    </view>
+    <view class="menu-item" bindtap="goToSchedule">
+      <text class="menu-icon">📅</text>
+      <text class="menu-text">排课管理</text>
+    </view>
+    <view class="menu-item" bindtap="goToAttendance">
+      <text class="menu-icon">✅</text>
+      <text class="menu-text">消课点名</text>
+    </view>
+    <view class="menu-item" bindtap="goToStats">
+      <text class="menu-icon">📊</text>
+      <text class="menu-text">统计中心</text>
+    </view>
+  </view>
+</view>

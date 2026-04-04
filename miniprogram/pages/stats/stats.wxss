@@ -1,0 +1,4 @@
+.stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20rpx; }
+.stat-card { background: #fff; border-radius: 16rpx; padding: 40rpx 20rpx; text-align: center; box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.06); }
+.stat-value { font-size: 48rpx; font-weight: 700; color: #4facfe; display: block; }
+.stat-label { font-size: 24rpx; color: #999; margin-top: 10rpx; display: block; }

@@ -1,0 +1,18 @@
+<view class="container">
+  <view class="week-tabs">
+    <view class="week-tab {{currentDay==item?'active':''}}" wx:for="{{days}}" wx:key="*this" bindtap="switchDay" data-day="{{item}}">{{item}}</view>
+  </view>
+  <view class="schedule-card" wx:for="{{scheduleData}}" wx:key="time">
+    <view class="time-slot">{{item.time}}</view>
+    <view class="coach-list">
+      <view class="coach-item" wx:for="{{item.coaches}}" wx:for-item="coach" wx:key="name">
+        <view class="coach-name">{{coach.name}} <text class="count">({{coach.count}}/{{coach.max}})</text></view>
+        <view class="student-tags">
+          <text class="tag" wx:for="{{coach.students}}" wx:for-item="stu" wx:key="*this">{{stu}}</text>
+          <text class="empty" wx:if="{{coach.students.length===0}}">(空)</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view wx:if="{{scheduleData.length===0}}" class="empty">暂无课表数据</view>
+</view>

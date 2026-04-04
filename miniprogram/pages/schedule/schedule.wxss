@@ -1,0 +1,11 @@
+.week-tabs { display: flex; gap: 8rpx; margin-bottom: 20rpx; flex-wrap: wrap; }
+.week-tab { padding: 12rpx 20rpx; border-radius: 12rpx; background: #fff; font-size: 24rpx; color: #666; }
+.week-tab.active { background: #4facfe; color: #fff; }
+.schedule-card { background: #fff; border-radius: 16rpx; padding: 20rpx; margin-bottom: 16rpx; box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.06); }
+.time-slot { font-size: 28rpx; font-weight: 600; color: #333; padding: 12rpx 0; border-bottom: 1rpx solid #f0f0f0; margin-bottom: 12rpx; }
+.coach-item { margin-bottom: 12rpx; }
+.coach-name { font-size: 24rpx; color: #4facfe; font-weight: 500; }
+.count { font-size: 20rpx; color: #999; }
+.student-tags { display: flex; flex-wrap: wrap; gap: 8rpx; margin-top: 8rpx; }
+.tag { padding: 4rpx 12rpx; background: #f0f8ff; border-radius: 8rpx; font-size: 22rpx; color: #333; }
+.empty { color: #999; font-size: 22rpx; }

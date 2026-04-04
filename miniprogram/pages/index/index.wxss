@@ -1,0 +1,11 @@
+.header { text-align: center; padding: 40rpx 0 30rpx; }
+.title { font-size: 44rpx; font-weight: 700; color: #333; display: block; }
+.subtitle { font-size: 26rpx; color: #999; margin-top: 10rpx; display: block; }
+.stats-grid { display: flex; flex-wrap: wrap; gap: 20rpx; margin-bottom: 30rpx; }
+.stat-item { flex: 1; min-width: 300rpx; background: linear-gradient(135deg, #4facfe, #00f2fe); border-radius: 20rpx; padding: 30rpx; text-align: center; color: #fff; }
+.stat-item .value { font-size: 48rpx; font-weight: 700; display: block; }
+.stat-item .label { font-size: 24rpx; opacity: 0.85; margin-top: 8rpx; display: block; }
+.menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20rpx; }
+.menu-item { background: #fff; border-radius: 20rpx; padding: 40rpx 20rpx; text-align: center; box-shadow: 0 4rpx 16rpx rgba(0,0,0,0.06); }
+.menu-icon { font-size: 56rpx; display: block; margin-bottom: 12rpx; }
+.menu-text { font-size: 28rpx; color: #333; display: block; }

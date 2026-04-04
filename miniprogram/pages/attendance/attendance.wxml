@@ -1,0 +1,42 @@
+<view class="container">
+  <view class="card">
+    <view class="form-row">
+      <view class="form-group">
+        <text class="label">日期</text>
+        <picker mode="date" value="{{date}}" bindchange="onDateChange">
+          <view class="picker">{{date}}</view>
+        </picker>
+      </view>
+      <view class="form-group">
+        <text class="label">星期</text>
+        <picker bindchange="onDayChange" value="{{dayIndex}}" range="{{days}}">
+          <view class="picker">{{day}}</view>
+        </picker>
+      </view>
+    </view>
+    <view class="form-group">
+      <text class="label">时间段</text>
+      <picker bindchange="onSlotChange" value="{{slotIndex}}" range="{{slots}}">
+        <view class="picker">{{slot || '请选择'}}</view>
+      </picker>
+    </view>
+    <button class="btn btn-primary" bindtap="loadStudents">加载学员</button>
+  </view>
+
+  <view class="card" wx:if="{{attStudents.length > 0}}">
+    <view class="att-header">
+      <text>共 {{attStudents.length}} 名学员</text>
+      <text class="select-count" wx:if="{{selectedCount > 0}}">已选 {{selectedCount}}</text>
+    </view>
+    <view class="att-item" wx:for="{{attStudents}}" wx:key="id">
+      <view class="att-check {{item.selected?'checked':''}}" bindtap="toggleSelect" data-index="{{index}}">
+        <text wx:if="{{item.selected}}">✓</text>
+      </view>
+      <view class="att-info">
+        <text class="att-name">{{item.name}}</text>
+        <text class="att-detail">教练: {{item.coach}} | 剩余: {{item.remaining_hours}}</text>
+      </view>
+    </view>
+    <button class="btn btn-primary" bindtap="takeAttendance" style="margin-top:20rpx">批量消课</button>
+  </view>
+</view>
