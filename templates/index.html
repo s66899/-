@@ -123,22 +123,42 @@
 
             <!-- 消课点名 -->
             <section id="tab-attendance" class="tab-content">
-                <div class="attendance-layout">
-                    <div class="form-card">
-                        <h3>消课记录</h3>
-                        <div class="form-group">
-                            <label>选择学员</label>
-                            <select id="attendanceStudent" class="select full"></select>
-                        </div>
-                        <div class="form-group">
-                            <label>消耗课时</label>
-                            <input type="number" id="attendanceHours" class="input" value="1" min="0.5" step="0.5">
-                        </div>
+                <div class="attendance-controls">
+                    <div class="form-row">
                         <div class="form-group">
                             <label>日期</label>
                             <input type="date" id="attendanceDate" class="input full">
                         </div>
-                        <button class="btn btn-primary full" onclick="doAttendance()">确认消课</button>
+                        <div class="form-group">
+                            <label>星期</label>
+                            <select id="attendanceDay" class="select full" onchange="loadAttendanceSlots()">
+                                <option>星期一</option><option>星期二</option><option>星期三</option>
+                                <option>星期四</option><option>星期五</option><option>星期六</option><option>星期日</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>时间段</label>
+                            <select id="attendanceSlot" class="select full"></select>
+                        </div>
+                        <div class="form-group" style="display:flex;align-items:flex-end">
+                            <button class="btn btn-primary full" onclick="loadAttendanceStudents()">加载学员</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="attendance-layout">
+                    <div class="attendance-list">
+                        <div class="toolbar" style="padding:0">
+                            <button class="btn btn-sm btn-primary" onclick="takeAttendance()">✅ 批量消课</button>
+                            <span id="attendanceCount" style="font-size:13px;color:#666"></span>
+                        </div>
+                        <div class="table-container" style="padding:12px 0">
+                            <table class="table">
+                                <thead>
+                                    <tr><th><input type="checkbox" id="attSelectAll" onchange="toggleAttSelectAll()"></th><th>学员</th><th>教练</th><th>剩余课时</th><th>状态</th></tr>
+                                </thead>
+                                <tbody id="attendanceStudentsTable"></tbody>
+                            </table>
+                        </div>
                     </div>
                     <div class="attendance-history">
                         <h3>消课历史</h3>

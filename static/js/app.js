@@ -15,6 +15,12 @@ document.addEventListener('DOMContentLoaded', () => {
     loadStats();
     initSearch();
     document.getElementById('attendanceDate').value = new Date().toISOString().split('T')[0];
+    const today = new Date().getDay();
+    const dayMap = [7,1,2,3,4,5,6];
+    const dayNames = ['','星期一','星期二','星期三','星期四','星期五','星期六','星期日'];
+    document.getElementById('attendanceDay').value = dayNames[dayMap[today]] || '星期一';
+    loadAttendanceSlots();
+    loadAttendanceHistory();
 });
 
 // ==================== 导航 ====================
@@ -30,7 +36,7 @@ function initNav() {
             if (tab === 'students') loadStudents();
             if (tab === 'enroll') { loadPackages(); loadEnrollments(); populateStudentSelect('enrollStudent'); }
             if (tab === 'schedule') loadSchedule();
-            if (tab === 'attendance') { loadAttendance(); populateStudentSelect('attendanceStudent'); }
+            if (tab === 'attendance') { loadAttendanceSlots(); loadAttendanceHistory(); }
             if (tab === 'stats') loadStats();
         });
     });
@@ -346,23 +352,91 @@ async function clearSchedules() {
 }
 
 // ==================== 消课点名 ====================
-async function doAttendance() {
-    const studentId = document.getElementById('attendanceStudent').value;
-    const hours = parseFloat(document.getElementById('attendanceHours').value);
-    const date = document.getElementById('attendanceDate').value;
-    if (!studentId) return alert('请选择学员');
-    const res = await fetch('/api/attendance', {
-        method: 'POST',
-        headers: {'Content-Type':'application/json'},
-        body: JSON.stringify({ student_id: studentId, hours_used: hours, date })
-    });
-    const data = await res.json();
-    alert('消课成功！');
-    loadAttendance();
-    loadStudents();
+let attendanceStudents = [];
+let selectedAttendance = new Set();
+
+async function loadAttendanceSlots() {
+    const day = document.getElementById('attendanceDay').value;
+    const res = await fetch('/api/settings');
+    const settings = await res.json();
+    const slots = settings.time_slots[day] || [];
+    const slotSel = document.getElementById('attendanceSlot');
+    slotSel.innerHTML = slots.map(s => `<option>${s}</option>`).join('');
 }
 
-async function loadAttendance() {
+async function loadAttendanceStudents() {
+    const day = document.getElementById('attendanceDay').value;
+    const slot = document.getElementById('attendanceSlot').value;
+    if (!slot) return alert('请选择时间段');
+    const res = await fetch(`/api/schedules?day=${day}`);
+    const schedules = await res.json();
+    const matched = schedules.filter(s => s.time_slot === slot);
+    const studentsRes = await fetch('/api/students');
+    const allStudents = await studentsRes.json();
+    const studentMap = {};
+    allStudents.forEach(s => studentMap[s.id] = s);
+
+    attendanceStudents = [];
+    selectedAttendance.clear();
+    matched.forEach(s => {
+        const student = studentMap[s.student_id] || {};
+        attendanceStudents.push({
+            schedule_id: s.id,
+            student_id: s.student_id,
+            student_name: student.name || '未知',
+            coach: s.coach || '',
+            remaining_hours: student.remaining_hours || 0
+        });
+    });
+
+    const tbody = document.getElementById('attendanceStudentsTable');
+    tbody.innerHTML = attendanceStudents.map((a, i) => `
+        <tr>
+            <td><input type="checkbox" ${selectedAttendance.has(i)?'checked':''} onchange="toggleAttSelect(${i})"></td>
+            <td>${a.student_name}</td>
+            <td>${a.coach}</td>
+            <td><strong>${a.remaining_hours}</strong></td>
+            <td><span class="badge badge-active">待消课</span></td>
+        </tr>
+    `).join('');
+    document.getElementById('attendanceCount').textContent = `共 ${attendanceStudents.length} 名学员`;
+}
+
+function toggleAttSelect(i) {
+    if (selectedAttendance.has(i)) selectedAttendance.delete(i);
+    else selectedAttendance.add(i);
+}
+
+function toggleAttSelectAll() {
+    const all = document.getElementById('attSelectAll').checked;
+    selectedAttendance.clear();
+    if (all) attendanceStudents.forEach((_, i) => selectedAttendance.add(i));
+    loadAttendanceStudents();
+}
+
+async function takeAttendance() {
+    if (selectedAttendance.size === 0) return alert('请先选择要消课的学员');
+    const date = document.getElementById('attendanceDate').value;
+    const day = document.getElementById('attendanceDay').value;
+    const slot = document.getElementById('attendanceSlot').value;
+    const count = selectedAttendance.size;
+    if (!confirm(`确定对 ${count} 名学员消课？`)) return;
+
+    for (const i of selectedAttendance) {
+        const a = attendanceStudents[i];
+        await fetch('/api/attendance', {
+            method: 'POST',
+            headers: {'Content-Type':'application/json'},
+            body: JSON.stringify({ student_id: a.student_id, hours_used: 1, date, schedule_id: a.schedule_id })
+        });
+    }
+    alert(`已消课 ${count} 名学员`);
+    selectedAttendance.clear();
+    loadAttendanceStudents();
+    loadAttendanceHistory();
+}
+
+async function loadAttendanceHistory() {
     const res = await fetch('/api/attendance');
     const attendances = await res.json();
     const studentsRes = await fetch('/api/students');
@@ -373,6 +447,11 @@ async function loadAttendance() {
         const s = studentMap[a.student_id] || {};
         return `<tr><td>${s.name || '未知'}</td><td>${a.hours_used}</td><td>${a.date}</td><td><span class="badge badge-active">已完成</span></td></tr>`;
     }).join('');
+}
+
+// 兼容旧函数名
+async function loadAttendance() {
+    loadAttendanceHistory();
 }
 
 // ==================== 统计中心 ====================
