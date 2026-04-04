@@ -1,4 +1,4 @@
-const BASE_URL = 'https://offering-retired-guru-frequently.trycloudflare.com'
+const BASE_URL = 'https://novelty-lamp-nor-fitted.trycloudflare.com '
 
 function request(url, method = 'GET', data = {}) {
   return new Promise((resolve, reject) => {

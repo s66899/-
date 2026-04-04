@@ -2,7 +2,7 @@
   "name": "运动教务小程序",
   "version": "1.0.0",
   "description": "青羽教务系统微信小程序",
-  "appid": "wx7e47ec28de4c5591",
+  "appid": "wxa9f3e82f999029d8",
   "compileType": "miniprogram",
   "miniprogramRoot": "miniprogram/",
   "setting": {
@@ -41,7 +41,19 @@
     "disableUseStrict": false,
     "minifyWXML": true,
     "showES6CompileOption": false,
-    "useCompilerPlugins": false
+    "useCompilerPlugins": false,
+    "compileWorklet": false,
+    "localPlugins": false,
+    "condition": false,
+    "swc": false,
+    "disableSWC": true
   },
-  "condition": {}
+  "condition": {},
+  "simulatorPluginLibVersion": {},
+  "packOptions": {
+    "ignore": [],
+    "include": []
+  },
+  "editorSetting": {},
+  "libVersion": "3.15.1"
 }
