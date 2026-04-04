@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>青羽教务系统 - 功能预览</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: float 20s linear infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .header h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            position: relative;
+        }
+        
+        .header .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            font-weight: 300;
+            position: relative;
+        }
+        
+        .nav-tabs {
+            display: flex;
+            background: #f8f9fa;
+            border-bottom: 2px solid #e9ecef;
+            padding: 0 20px;
+        }
+        
+        .tab {
+            padding: 20px 30px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #6c757d;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .tab::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .tab:hover::before {
+            left: 100%;
+        }
+        
+        .tab:hover {
+            color: #495057;
+            background: #fff;
+        }
+        
+        .tab.active {
+            color: #4facfe;
+            border-bottom-color: #4facfe;
+            background: #fff;
+        }
+        
+        .content {
+            padding: 40px;
+            min-height: 600px;
+        }
+        
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #4facfe;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 100px;
+            height: 3px;
+            background: #00f2fe;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .feature-card {
+            background: linear-gradient(145deg, #ffffff, #f8f9fa);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border: 1px solid #e9ecef;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, #4facfe, #00f2fe);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .feature-card h3 {
+            color: #2c3e50;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .feature-card h3 i {
+            color: #4facfe;
+            font-size: 1.8rem;
+        }
+        
+        .feature-card p {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+        
+        .feature-list {
+            list-style: none;
+        }
+        
+        .feature-list li {
+            padding: 10px 0;
+            border-bottom: 1px dashed #eee;
+            color: #555;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .feature-list li::before {
+            content: '✓';
+            color: #4facfe;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .code-preview {
+            background: #1e1e1e;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 30px 0;
+            overflow-x: auto;
+            position: relative;
+        }
+        
+        .code-preview::before {
+            content: 'Python代码预览';
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            color: #888;
+            font-size: 0.9rem;
+        }
+        
+        .code-preview pre {
+            color: #d4d4d4;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        
+        .keyword { color: #569cd6; }
+        .string { color: #ce9178; }
+        .comment { color: #6a9955; }
+        .function { color: #dcdcaa; }
+        .number { color: #b5cea8; }
+        
+        .demo-ui {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            border: 2px dashed #dee2e6;
+            position: relative;
+        }
+        
+        .demo-ui::before {
+            content: '界面模拟预览';
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            background: #4facfe;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        .ui-window {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        
+        .ui-titlebar {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 15px 20px;
+            font-weight: 600;
+        }
+        
+        .ui-content {
+            padding: 20px;
+        }
+        
+        .ui-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .ui-card {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid #e9ecef;
+        }
+        
+        .ui-card:hover {
+            background: #e9ecef;
+            transform: translateY(-2px);
+        }
+        
+        .ui-card i {
+            font-size: 2rem;
+            color: #4facfe;
+            margin-bottom: 10px;
+        }
+        
+        .ui-card span {
+            display: block;
+            font-weight: 600;
+            color: #495057;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 30px;
+            background: #f8f9fa;
+            color: #666;
+            border-top: 1px solid #e9ecef;
+            margin-top: 40px;
+        }
+        
+        .footer a {
+            color: #4facfe;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin: 0 5px;
+        }
+        
+        .badge-new { background: #ff6b6b; color: white; }
+        .badge-fix { background: #4ecdc4; color: white; }
+        .badge-feature { background: #45b7d1; color: white; }
+        
+        @media (max-width: 768px) {
+            .header h1 { font-size: 2.5rem; }
+            .nav-tabs { flex-wrap: wrap; }
+            .tab { padding: 15px; flex: 1; text-align: center; }
+            .features-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>青羽教务系统</h1>
+            <p class="subtitle">羽毛球培训机构智能管理系统 - 模仿"校如云"架构重构</p>
+            <div style="margin-top: 20px;">
+                <span class="badge badge-new">新架构</span>
+                <span class="badge badge-feature">双端设计</span>
+                <span class="badge badge-fix">功能优化</span>
+            </div>
+        </div>
+        
+        <div class="nav-tabs">
+            <div class="tab active" onclick="showTab('overview')">系统概览</div>
+            <div class="tab" onclick="showTab('features')">核心功能</div>
+            <div class="tab" onclick="showTab('teacher')">老师/管理员端</div>
+            <div class="tab" onclick="showTab('student')">学生端</div>
+            <div class="tab" onclick="showTab('code')">代码架构</div>
+            <div class="tab" onclick="showTab('preview')">界面预览</div>
+        </div>
+        
+        <div class="content">
+            <!-- 系统概览 -->
+            <div id="overview" class="tab-content active">
+                <h2 class="section-title">系统概览</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <h3><i class="fas fa-sync-alt"></i> 架构重构</h3>
+                        <p>基于"校如云"系统架构重新设计，分为老师/管理员端和学生端，支持多角色访问。</p>
+                        <ul class="feature-list">
+                            <li>前后端分离设计</li>
+                            <li>响应式界面适配</li>
+                            <li>模块化功能组件</li>
+                            <li>数据实时同步</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h3><i class="fas fa-table-tennis"></i> 专业羽毛球管理</h3>
+                        <p>专为羽毛球培训机构定制，满足场地、教练、课程、学员全流程管理需求。</p>
+                        <ul class="feature-list">
+                            <li>场地预约管理系统</li>
+                            <li>教练排班与评估</li>
+                            <li>学员水平分级管理</li>
+                            <li>比赛与活动组织</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h3><i class="fas fa-mobile-alt"></i> 多端支持</h3>
+                        <p>支持PC端和移动端访问，老师随时随地管理，学员轻松约课查看。</p>
+                        <ul class="feature-list">
+                            <li>响应式Web界面</li>
+                            <li>移动端优化体验</li>
+                            <li>离线数据缓存</li>
+                            <li>消息实时推送</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="demo-ui">
+                    <div class="ui-window">
+                        <div class="ui-titlebar">青羽教务系统 - 登录界面</div>
+                        <div class="ui-content">
+                            <div style="text-align: center; padding: 20px;">
+                                <div style="font-size: 1.2rem; margin-bottom: 20px; color: #495057;">选择登录身份</div>
+                                <div class="ui-grid">
+                                    <div class="ui-card">
+                                        <i class="fas fa-chalkboard-teacher"></i>
+                                        <span>老师/管理员</span>
+                                    </div>
+                                    <div class="ui-card">
+                                        <i class="fas fa-user-graduate"></i>
+                                        <span>学生/学员</span>
+                                    </div>
+                                    <div class="ui-card">
+                                        <i class="fas fa-user-tie"></i>
+                                        <span>教练</span>
+                                    </div>
+                                    <div class="ui-card">
+                                        <i class="fas fa-home"></i>
+                                        <span>家长</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 核心功能 -->
+            <div id="features" class="tab-content">
+                <h2 class="section-title">核心功能模块</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <h3><i class="fas fa-users"></i> 学员管理</h3>
+                        <p>完整的学员生命周期管理，从潜在学员到正式学员的全流程跟踪。</p>
+                        <ul class="feature-list">
+                            <li>学员档案数字化管理</li>
+                            <li>年龄自动计算与显示</li>
+                            <li>学员水平分级体系</li>
+                            <li>批量导入导出功能</li>
+                            <li>全选/批量操作支持</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h3><i class="fas fa-calendar-alt"></i> 报课与排课</h3>
+                        <p>灵活的课程管理体系，支持多课程、多时段、多教练的复杂排课需求。</p>
+                        <ul class="feature-list">
+                            <li>课程与水平分离管理</li>
+                            <li>智能排课时间冲突检测</li>
+                            <li>周日时间段自动修复</li>
+                            <li>课表导入导出功能</li>
+                            <li>微信/短信课表推送</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h3><i class="fas fa-clipboard-check"></i> 消课与考勤</h3>
+                        <p>高效的消课点名系统，实时更新课时数据，智能计算存销比。</p>
+                        <ul class="feature-list">
+                            <li>一键点名消课功能</li>
+                            <li>剩余课时实时显示</li>
+                            <li>存销比自动计算</li>
+                            <li>考勤码快速签到</li>
+                            <li>请假审批流程</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h3><i class="fas fa-chart-line"></i> 统计与分析</h3>
+                        <p>全面的数据统计中心，为机构运营提供决策支持。</p>
+                        <ul class="feature-list">
+                            <li>实时运营数据看板</li>
+                            <li>学员增长趋势分析</li>
+                            <li>课程消课率统计</li>
+                            <li>教练业绩排行榜</li>
+                            <li>财务报表生成</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h3><i class="fas fa-comment-dots"></i> 消息与通知</h3>
+                        <p>多渠道消息推送系统，确保重要信息及时传达。</p>
+                        <ul class="feature-list">
+                            <li>重要通知实时推送</li>
+                            <li>上课提醒自动发送</li>
+                            <li>续费预警通知</li>
+                            <li>课程调整通知</li>
+                            <li>活动营销推送</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h3><i class="fas fa-shopping-cart"></i> 在线服务</h3>
+                        <p>学员自助服务平台，减少人工操作，提升服务效率。</p>
+                        <ul class="feature-list">
+                            <li>在线约课选课</li>
+                            <li>课程购买与续费</li>
+                            <li>在线请假申请</li>
+                            <li>作业提交与查看</li>
+                            <li>师生互评系统</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 老师/管理员端 -->
+            <div id="teacher" class="tab-content">
+                <h2 class="section-title">老师/管理员端功能</h2>
+                <div class="demo-ui">
+                    <div class="ui-window">
+                        <div class="ui-titlebar">老师端管理面板</div>
+                        <div class="ui-content">
+                            <div class="ui-grid">
+                                <div class="ui-card">
+                                    <i class="fas fa-user-plus"></i>
+                                    <span>潜在学员管理</span>
+                                </div>
+                                <div class="ui-card">
+                                    <i class="fas fa-user-check"></i>
+                                    <span>正式学员管理</span>
+                                </div>
+                                <div class="ui-card">
+                                    <i class="fas fa-calendar-check"></i>
+                                    <span>上课点名</span>
+                                </div>
+                                <div class="ui-card">
+                                    <i class="fas fa-ticket-alt"></i>
+                                    <span>扣课消课</span>
+                                </div>
+                                <div class="ui-card">
+                                    <i class="fas fa-tasks"></i>
+                                    <span>布置作业</span>
+                                </div>
+                                <div class="ui-card">
+                                    <i class="fas fa-table"></i>
+                                    <span>课表管理</span>
+                                </div>
+                                <div class="ui-card">
+                                    <i class="fas fa-envelope-open-text"></i>
+                                    <span>请假审批</span>
+                                </div>
+                                <div class="ui-card">
+                                    <i class="fas fa-archive"></i>
+                                    <span>学员档案</span>
+                                </div>
+                                <div class="ui-card">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                    <span>续费预警</span>
+                                </div>
+                                <div class="ui-card">
+                                    <i class="fas fa-chart-bar"></i>
+                                    <span>业绩管理</span>
+                                </div>
+                                <div class="ui-card">
+                                    <i class="fas fa-money-check-alt"></i>
+                                    <span>欠费跟进</span>
+                                </div>
+                                <div class="ui-card">
+                                    <i class="fas fa-cog"></i>
+                                    <span>系统设置</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <h3><i class="fas fa-laptop"></i> PC电脑端</h3>
+                        <p>功能全面的桌面管理系统，适合日常办公和数据处理。</p>
+                        <ul class="feature-list">
+                            <li>完整的数据管理功能</li>
+                            <li>批量操作与导入导出</li>
+                            <li>数据统计与报表生成</li>
+                            <li>系统配置与权限管理</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h3><i class="fas fa-mobile-alt"></i> 手机移动端</h3>
+                        <p>随时随地管理校区，重要操作不再受地点限制。</p>
+                        <ul class="feature-list">
+                            <li>上课点名快速完成</li>
+                            <li>请假申请及时审批</li>
+                            <li>消息通知实时接收</li>
+                            <li>数据概览随时查看</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h3><i class="fas fa-user-shield"></i> 权限管理</h3>
+                        <p>精细化的权限控制体系，保障数据安全与操作规范。</p>
+                        <ul class="feature-list">
+                            <li>多角色权限分配</li>
+                            <li>子账号分级管理</li>
+                            <li>操作日志记录</li>
+                            <li>数据访问控制</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 学生端 -->
+            <div id="student" class="tab-content">
+                <h2 class="section-title">学生端功能</h2>
+                <div class="demo-ui">
+                    <div class="ui-window">
+                        <div class="ui-titlebar">学生端个人中心</div>
+                        <div class="ui-content">
+                            <div class="ui-grid">
+                                <div class="ui-card">
+                                    <i class="fas fa-bell"></i>
+                                    <span>通知中心</span>
+                                </div>
+                                <div class="ui-card">
+                                    <i class="fas fa-calendar"></i>
+                                    <span>我的课表</span>
+                                </div>
+                                <div class="ui-card">
+                                    <i class="fas fa-book"></i>
+                                    <span>课程约课</span>
+                                </div>
+                                <div class="ui-card">
+                                    <i class="fas fa-qrcode"></i>
+                                    <span>考勤签到</span>
+                                </div>
+                                <div class="ui-card">
+                                    <i class="fas fa-tasks"></i>
+                                    <span>我的作业</span>
+                                </div>
+                                <div class="ui-card">
+                                    <i class="fas fa-envelope"></i>
+                                    <span>在线请假</span>
+                                </div>
+                                <div class="ui-card">
+                                    <i class="fas fa-shopping-cart"></i>
+                                    <span>课程购买</span>
+                                </div>
+                                <div class="ui-card">
+                                    <i class="fas fa-star"></i>
+                                    <span>师生互评</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <h3><i class="fas fa-bullhorn"></i> 重要通知</h3>
+                        <p>实时接收机构重要通知，不错过任何教学动态和活动信息。</p>
+                        <ul class="feature-list">
+                            <li>续费通知及时推送</li>
+                            <li>上课提醒准时到达</li>
+                            <li>考勤通知一目了然</li>
+                            <li>课程调整即时告知</li>
+                            <li>活动通知精彩纷呈</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h3><i class="fas fa-hand-pointer"></i> 便捷操作</h3>
+                        <p>简单易用的操作界面，让学员和家长轻松完成各项操作。</p>
+                        <ul class="feature-list">
+                            <li>在线约课一键完成</li>
+                            <li>请假申请快速提交</li>
+                            <li>作业查看与提交</li>
+                            <li>课程评价随时填写</li>
+                            <li>个人信息随时更新</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h3><i class="fas fa-shield-alt"></i> 安全可靠</h3>
+                        <p>多重安全保障措施，保护学员隐私和资金安全。</p>
+                        <ul class="feature-list">
+                            <li>个人信息加密存储</li>
+                            <li>支付安全多重验证</li>
+                            <li>操作记录可追溯</li>
+                            <li>隐私保护设置</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 代码架构 -->
+            <div id="code" class="tab-content">
+                <h2 class="section-title">代码架构设计</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <h3><i class="fas fa-layer-group"></i> 分层架构</h3>
+                        <p>采用清晰的分层架构，实现业务逻辑与界面展示的分离。</p>
+                        <ul class="feature-list">
+                            <li>数据访问层(DAO)</li>
+                            <li>业务逻辑层(Service)</li>
+                            <li>界面展示层(UI)</li>
+                            <li>工具类层(Utils)</li>
+                            <li>配置层(Config)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h3><i class="fas fa-cogs"></i> 模块化设计</h3>
+                        <p>功能模块独立封装，便于维护扩展和团队协作开发。</p>
+                        <ul class="feature-list">
+                            <li>学员管理模块</li>
+                            <li>课程管理模块</li>
+                            <li>排课消课模块</li>
+                            <li>统计报表模块</li>
+                            <li>消息通知模块</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h3><i class="fas fa-database"></i> 数据模型</h3>
+                        <p>完善的数据模型设计，支持复杂的业务关系和数据统计。</p>
+                        <ul class="feature-list">
+                            <li>学员实体模型</li>
+                            <li>课程实体模型</li>
+                            <li>订单实体模型</li>
+                            <li>考勤实体模型</li>
+                            <li>消息实体模型</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="code-preview">
+                    <pre><code><span class="keyword">import</span> tkinter <span class="keyword">as</span> tk
+<span class="keyword">from</span> tkinter <span class="keyword">import</span> ttk, messagebox
+<span class="keyword">import</span> json
+<span class="keyword">import</span> os
+<span class="keyword">from</span> datetime <span class="keyword">import</span> datetime
+<span class="keyword">from</span> enum <span class="keyword">import</span> Enum
+
+<span class="comment"># 用户角色枚举</span>
+<span class="keyword">class</span> <span class="function">UserRole</span>(Enum):
+    ADMIN = <span class="string">"admin"</span>      <span class="comment"># 管理员</span>
+    TEACHER = <span class="string">"teacher"</span>  <span class="comment"># 老师</span>
+    STUDENT = <span class="string">"student"</span>  <span class="comment"># 学生</span>
+    PARENT = <span class="string">"parent"</span>    <span class="comment"># 家长</span>
+    COACH = <span class="string">"coach"</span>     <span class="comment"># 教练</span>
+
+<span class="comment"># 学员实体类</span>
+<span class="keyword">class</span> <span class="function">Student</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(<span class="keyword">self</span>, name, phone, birth_date, level, coach):
+        <span class="keyword">self</span>.id = <span class="function">generate_id</span>()
+        <span class="keyword">self</span>.name = name
+        <span class="keyword">self</span>.phone = phone
+        <span class="keyword">self</span>.birth_date = birth_date
+        <span class="keyword">self</span>.level = level
+        <span class="keyword">self</span>.coach = coach
+        <span class="keyword">self</span>.register_date = <span class="function">datetime</span>.now()
+        <span class="keyword">self</span>.status = <span class="string">"active"</span>  <span class="comment"># active, inactive, graduated</span>
+    
+    <span class="keyword">def</span> <span class="function">calculate_age</span>(<span class="keyword">self</span>):
+        <span class="comment"># 计算年龄逻辑</span>
+        <span class="keyword">pass</span>
+
+<span class="comment"># 课程实体类</span>
+<span class="keyword">class</span> <span class="function">Course</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(<span class="keyword">self</span>, name, level, total_hours, price):
+        <span class="keyword">self</span>.id = <span class="function">generate_id</span>()
+        <span class="keyword">self</span>.name = name
+        <span class="keyword">self</span>.level = level
+        <span class="keyword">self</span>.total_hours = total_hours
+        <span class="keyword">self</span>.price = price
+        <span class="keyword">self</span>.remaining_hours = total_hours
+        <span class="keyword">self</span>.start_date = <span class="keyword">None</span>
+        <span class="keyword">self</span>.end_date = <span class="keyword">None</span>
+        <span class="keyword">self</span>.students = []  <span class="comment"># 报课学员列表</span>
+
+<span class="comment"># 青羽教务系统主类 - 重构版本</span>
+<span class="keyword">class</span> <span class="function">QingYuEduSystemV2</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(<span class="keyword">self</span>, root, user_role=UserRole.ADMIN):
+        <span class="keyword">self</span>.root = root
+        <span class="keyword">self</span>.user_role = user_role
+        <span class="keyword">self</span>.data_file = <span class="string">"教务数据.json"</span>
+        
+        <span class="comment"># 根据角色设置界面</span>
+        <span class="keyword">self</span>.<span class="function">setup_ui_by_role</span>()
+        <span class="keyword">self</span>.<span class="function">load_data</span>()
+    
+    <span class="keyword">def</span> <span class="function">setup_ui_by_role</span>(<span class="keyword">self</span>):
+        <span class="comment"># 根据用户角色显示不同的界面</span>
+        <span class="keyword">if</span> <span class="keyword">self</span>.user_role <span class="keyword">in</span> [UserRole.ADMIN, UserRole.TEACHER]:
+            <span class="keyword">self</span>.<span class="function">create_admin_ui</span>()
+        <span class="keyword">elif</span> <span class="keyword">self</span>.user_role == UserRole.STUDENT:
+            <span class="keyword">self</span>.<span class="function">create_student_ui</span>()
+        <span class="keyword">elif</span> <span class="keyword">self</span>.user_role == UserRole.PARENT:
+            <span class="keyword">self</span>.<span class="function">create_parent_ui</span>()
+        <span class="keyword">elif</span> <span class="keyword">self</span>.user_role == UserRole.COACH:
+            <span class="keyword">self</span>.<span class="function">create_coach_ui</span>()</code></pre>
+                </div>
+            </div>
+            
+            <!-- 界面预览 -->
+            <div id="preview" class="tab-content">
+                <h2 class="section-title">界面设计预览</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <h3><i class="fas fa-palette"></i> 设计风格</h3>
+                        <p>现代化UI设计，采用渐变色彩和卡片式布局，提升用户体验。</p>
+                        <ul class="feature-list">
+                            <li>Material Design设计语言</li>
+                            <li>响应式布局适配</li>
+                            <li>渐变色彩主题</li>
+                            <li>交互动画效果</li>
+                            <li>暗色模式支持</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h3><i class="fas fa-columns"></i> 布局方案</h3>
+                        <p>科学的页面布局，信息层级清晰，操作流程顺畅。</p>
+                        <ul class="feature-list">
+                            <li>侧边栏导航菜单</li>
+                            <li>顶部操作工具栏</li>
+                            <li>卡片式内容展示</li>
+                            <li>模态对话框交互</li>
+                            <li>面包屑导航路径</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h3><i class="fas fa-mobile-alt"></i> 移动适配</h3>
+                        <p>完美适配移动设备，在小屏幕上也能提供优秀的使用体验。</p>
+                        <ul class="feature-list">
+                            <li>移动端手势支持</li>
+                            <li>触摸友好控件</li>
+                            <li>离线功能支持</li>
+                            <li>推送通知集成</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="demo-ui">
+                    <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                        <div style="flex: 1; min-width: 300px;">
+                            <div class="ui-window">
+                                <div class="ui-titlebar">PC端 - 管理员面板</div>
+                                <div class="ui-content">
+                                    <div style="text-align: center; color: #666; padding: 40px 20px;">
+                                        <i class="fas fa-desktop" style="font-size: 3rem; color: #4facfe; margin-bottom: 20px;"></i>
+                                        <div style="font-size: 1.2rem; margin-bottom: 10px;">功能全面的桌面管理界面</div>
+                                        <div>适合日常办公和数据管理</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="flex: 1; min-width: 300px;">
+                            <div class="ui-window">
+                                <div class="ui-titlebar">移动端 - 学生界面</div>
+                                <div class="ui-content">
+                                    <div style="text-align: center; color: #666; padding: 40px 20px;">
+                                        <i class="fas fa-mobile-alt" style="font-size: 3rem; color: #00f2fe; margin-bottom: 20px;"></i>
+                                        <div style="font-size: 1.2rem; margin-bottom: 10px;">简洁易用的移动界面</div>
+                                        <div>随时随地约课查看</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 40px; padding: 30px; background: linear-gradient(135deg, #f8f9fa, #e9ecef); border-radius: 15px;">
+                    <h3 style="color: #2c3e50; margin-bottom: 20px;">系统技术栈</h3>
+                    <div style="display: flex; flex-wrap: wrap; gap: 15px; justify-content: center;">
+                        <span style="background: #4facfe; color: white; padding: 10px 20px; border-radius: 25px; font-weight: 600;">Python 3.8+</span>
+                        <span style="background: #00f2fe; color: white; padding: 10px 20px; border-radius: 25px; font-weight: 600;">Tkinter GUI</span>
+                        <span style="background: #764ba2; color: white; padding: 10px 20px; border-radius: 25px; font-weight: 600;">JSON数据库</span>
+                        <span style="background: #ff6b6b; color: white; padding: 10px 20px; border-radius: 25px; font-weight: 600;">Pillow图像处理</span>
+                        <span style="background: #45b7d1; color: white; padding: 10px 20px; border-radius: 25px; font-weight: 600;">CSV导入导出</span>
+                        <span style="background: #4ecdc4; color: white; padding: 10px 20px; border-radius: 25px; font-weight: 600;">多线程处理</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>青羽教务系统 - 羽毛球培训机构智能管理系统</p>
+            <p>架构重构版本 | 基于"校如云"系统架构设计 | 保持原有功能要求</p>
+            <p>Git仓库: <a href="https://github.com/s66899/-/tree/master/%F0%9F%90%91%E7%9A%84%E6%95%99%E5%8A%A1" target="_blank">🐑的教务文件夹</a></p>
+            <p style="margin-top: 20px; font-size: 0.9rem; color: #888;">
+                提示: 此HTML预览展示了系统重构后的架构设计和功能规划，实际代码实现请查看Git仓库中的更新。
+            </p>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabId) {
+            // 隐藏所有标签内容
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // 移除所有标签的激活状态
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // 显示选中的标签内容
+            document.getElementById(tabId).classList.add('active');
+            
+            // 激活对应的标签
+            event.target.classList.add('active');
+        }
+        
+        // 初始显示第一个标签
+        document.addEventListener('DOMContentLoaded', function() {
+            showTab('overview');
+        });
+    </script>
+</body>
+</html>

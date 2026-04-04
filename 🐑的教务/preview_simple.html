@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>青羽教务系统 - 功能预览</title>
+    <style>
+        body { font-family: sans-serif; margin: 20px; line-height: 1.6; }
+        h1 { color: #4facfe; }
+        h2 { color: #2c3e50; border-bottom: 2px solid #4facfe; padding-bottom: 10px; }
+        .tab { display: none; }
+        .tab.active { display: block; }
+        .nav { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
+        .nav button { padding: 10px 15px; background: #f0f0f0; border: none; border-radius: 5px; cursor: pointer; }
+        .nav button.active { background: #4facfe; color: white; }
+        .feature { background: #f8f9fa; padding: 15px; margin: 10px 0; border-radius: 8px; border-left: 4px solid #4facfe; }
+        .feature h3 { margin-top: 0; color: #2c3e50; }
+        .feature ul { margin: 10px 0; padding-left: 20px; }
+        .feature li { margin: 5px 0; }
+        .badge { display: inline-block; padding: 3px 8px; background: #4facfe; color: white; border-radius: 12px; font-size: 0.8em; margin-right: 5px; }
+    </style>
+</head>
+<body>
+    <h1>青羽教务系统</h1>
+    <p><strong>羽毛球培训机构智能管理系统 - 模仿"校如云"架构重构</strong></p>
+    <p><span class="badge">新架构</span> <span class="badge">双端设计</span> <span class="badge">功能优化</span></p>
+    
+    <div class="nav">
+        <button class="active" onclick="showTab('overview')">系统概览</button>
+        <button onclick="showTab('features')">核心功能</button>
+        <button onclick="showTab('teacher')">老师端</button>
+        <button onclick="showTab('student')">学生端</button>
+        <button onclick="showTab('code')">代码架构</button>
+        <button onclick="showTab('preview')">界面预览</button>
+    </div>
+    
+    <div id="overview" class="tab active">
+        <h2>系统概览</h2>
+        <div class="feature">
+            <h3>🏗️ 架构重构</h3>
+            <p>基于"校如云"系统架构重新设计，分为老师/管理员端和学生端，支持多角色访问。</p>
+            <ul>
+                <li>前后端分离设计</li>
+                <li>响应式界面适配</li>
+                <li>模块化功能组件</li>
+                <li>数据实时同步</li>
+            </ul>
+        </div>
+        <div class="feature">
+            <h3>🏸 专业羽毛球管理</h3>
+            <p>专为羽毛球培训机构定制，满足场地、教练、课程、学员全流程管理需求。</p>
+        </div>
+        <div class="feature">
+            <h3>📱 多端支持</h3>
+            <p>支持PC端和移动端访问，老师随时随地管理，学员轻松约课查看。</p>
+        </div>
+    </div>
+    
+    <div id="features" class="tab">
+        <h2>核心功能模块</h2>
+        <div class="feature">
+            <h3>👥 学员管理</h3>
+            <p>完整的学员生命周期管理，从潜在学员到正式学员的全流程跟踪。</p>
+            <ul>
+                <li>学员档案数字化管理</li>
+                <li>年龄自动计算与显示</li>
+                <li>学员水平分级体系</li>
+                <li>批量导入导出功能</li>
+                <li>全选/批量操作支持</li>
+            </ul>
+        </div>
+        <div class="feature">
+            <h3>📅 报课与排课</h3>
+            <p>灵活的课程管理体系，支持多课程、多时段、多教练的复杂排课需求。</p>
+            <ul>
+                <li>课程与水平分离管理</li>
+                <li>智能排课时间冲突检测</li>
+                <li>周日时间段自动修复</li>
+                <li>课表导入导出功能</li>
+                <li>微信/短信课表推送</li>
+            </ul>
+        </div>
+        <div class="feature">
+            <h3>✅ 消课与考勤</h3>
+            <p>高效的消课点名系统，实时更新课时数据，智能计算存销比。</p>
+            <ul>
+                <li>一键点名消课功能</li>
+                <li>剩余课时实时显示</li>
+                <li>存销比自动计算</li>
+                <li>考勤码快速签到</li>
+                <li>请假审批流程</li>
+            </ul>
+        </div>
+        <div class="feature">
+            <h3>📊 统计与分析</h3>
+            <p>全面的数据统计中心，为机构运营提供决策支持。</p>
+            <ul>
+                <li>实时运营数据看板</li>
+                <li>学员增长趋势分析</li>
+                <li>课程消课率统计</li>
+                <li>教练业绩排行榜</li>
+                <li>财务报表生成</li>
+            </ul>
+        </div>
+        <div class="feature">
+            <h3>💬 消息与通知</h3>
+            <p>多渠道消息推送系统，确保重要信息及时传达。</p>
+            <ul>
+                <li>重要通知实时推送</li>
+                <li>上课提醒自动发送</li>
+                <li>续费预警通知</li>
+                <li>课程调整通知</li>
+                <li>活动营销推送</li>
+            </ul>
+        </div>
+        <div class="feature">
+            <h3>🛒 在线服务</h3>
+            <p>学员自助服务平台，减少人工操作，提升服务效率。</p>
+            <ul>
+                <li>在线约课选课</li>
+                <li>课程购买与续费</li>
+                <li>在线请假申请</li>
+                <li>作业提交与查看</li>
+                <li>师生互评系统</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div id="teacher" class="tab">
+        <h2>老师/管理员端功能</h2>
+        <p><strong>管理面板包含12个核心功能：</strong></p>
+        <ul>
+            <li>潜在学员管理</li>
+            <li>正式学员管理</li>
+            <li>上课点名</li>
+            <li>扣课消课</li>
+            <li>布置作业</li>
+            <li>课表管理</li>
+            <li>请假审批</li>
+            <li>学员档案</li>
+            <li>续费预警</li>
+            <li>业绩管理</li>
+            <li>欠费跟进</li>
+            <li>系统设置</li>
+        </ul>
+        <div class="feature">
+            <h3>💻 PC电脑端</h3>
+            <p>功能全面的桌面管理系统，适合日常办公和数据处理。</p>
+        </div>
+        <div class="feature">
+            <h3>📱 手机移动端</h3>
+            <p>随时随地管理校区，重要操作不再受地点限制。</p>
+        </div>
+        <div class="feature">
+            <h3>🔐 权限管理</h3>
+            <p>精细化的权限控制体系，保障数据安全与操作规范。</p>
+        </div>
+    </div>
+    
+    <div id="student" class="tab">
+        <h2>学生端功能</h2>
+        <p><strong>个人中心包含8个快捷功能：</strong></p>
+        <ul>
+            <li>通知中心</li>
+            <li>我的课表</li>
+            <li>课程约课</li>
+            <li>考勤签到</li>
+            <li>我的作业</li>
+            <li>在线请假</li>
+            <li>课程购买</li>
+            <li>师生互评</li>
+        </ul>
+        <div class="feature">
+            <h3>📢 重要通知</h3>
+            <p>实时接收机构重要通知，不错过任何教学动态和活动信息。</p>
+        </div>
+        <div class="feature">
+            <h3>👆 便捷操作</h3>
+            <p>简单易用的操作界面，让学员和家长轻松完成各项操作。</p>
+        </div>
+        <div class="feature">
+            <h3>🛡️ 安全可靠</h3>
+            <p>多重安全保障措施，保护学员隐私和资金安全。</p>
+        </div>
+    </div>
+    
+    <div id="code" class="tab">
+        <h2>代码架构设计</h2>
+        <div class="feature">
+            <h3>🏗️ 分层架构</h3>
+            <ul>
+                <li>数据访问层(DAO)</li>
+                <li>业务逻辑层(Service)</li>
+                <li>界面展示层(UI)</li>
+                <li>工具类层(Utils)</li>
+                <li>配置层(Config)</li>
+            </ul>
+        </div>
+        <div class="feature">
+            <h3>🧩 模块化设计</h3>
+            <ul>
+                <li>学员管理模块</li>
+                <li>课程管理模块</li>
+                <li>排课消课模块</li>
+                <li>统计报表模块</li>
+                <li>消息通知模块</li>
+            </ul>
+        </div>
+        <div class="feature">
+            <h3>💾 数据模型</h3>
+            <ul>
+                <li>学员实体模型</li>
+                <li>课程实体模型</li>
+                <li>订单实体模型</li>
+                <li>考勤实体模型</li>
+                <li>消息实体模型</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div id="preview" class="tab">
+        <h2>界面设计预览</h2>
+        <div class="feature">
+            <h3>🎨 设计风格</h3>
+            <ul>
+                <li>Material Design设计语言</li>
+                <li>响应式布局适配</li>
+                <li>渐变色彩主题</li>
+                <li>交互动画效果</li>
+                <li>暗色模式支持</li>
+            </ul>
+        </div>
+        <div class="feature">
+            <h3>📐 布局方案</h3>
+            <ul>
+                <li>侧边栏导航菜单</li>
+                <li>顶部操作工具栏</li>
+                <li>卡片式内容展示</li>
+                <li>模态对话框交互</li>
+                <li>面包屑导航路径</li>
+            </ul>
+        </div>
+        <div class="feature">
+            <h3>📱 移动适配</h3>
+            <ul>
+                <li>移动端手势支持</li>
+                <li>触摸友好控件</li>
+                <li>离线功能支持</li>
+                <li>推送通知集成</li>
+            </ul>
+        </div>
+        <p><strong>系统技术栈：</strong> Python 3.8+ • Tkinter GUI • JSON数据库 • Pillow图像处理 • CSV导入导出 • 多线程处理</p>
+    </div>
+    
+    <hr>
+    <p><small>青羽教务系统 - 羽毛球培训机构智能管理系统<br>
+    架构重构版本 | 基于"校如云"系统架构设计 | 保持原有功能要求<br>
+    完整版HTML预览文件: <code>preview.html</code> (42KB, 包含完整样式和交互)</small></p>
+    
+    <script>
+        function showTab(tabId) {
+            // 隐藏所有标签
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            // 激活对应标签
+            document.getElementById(tabId).classList.add('active');
+            
+            // 更新按钮状态
+            document.querySelectorAll('.nav button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>
